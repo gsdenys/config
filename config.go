@@ -14,7 +14,10 @@
 
 package config
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"fmt"
+)
 
 //Configuration type to store all configuration itens
 type Configuration map[string]*Item
@@ -60,6 +63,14 @@ func New(jsonBody []byte) *Configuration {
 	return &conf
 }
 
+func getItemKey(name string, tp Component) string {
+	if name == "" {
+		name = "none"
+	}
+
+	return fmt.Sprintf("%s.%s", name, string(tp))
+}
+
 //Add function to add new Item to configuration. This module takes for
 //itself the decision of which item will be used, the global or local.
 //
@@ -70,21 +81,19 @@ func New(jsonBody []byte) *Configuration {
 //		conf := make(Configuration)
 //		conf.add(item)
 func (conf *Configuration) Add(item Item) {
-	if item.Name != "" {
-		(*conf)[item.Name] = &item
-		return
-	}
-
-	cName := string(item.Type)
-	(*conf)[cName] = &item
+	key := getItemKey(item.Name, item.Type)
+	(*conf)[key] = &item
 }
 
 //Get function to obtain the Item based on it key
 func (conf *Configuration) Get(cName string, cType Component) *Item {
-	val := (*conf)[cName]
+	key := getItemKey(cName, cType)
+
+	val := (*conf)[string(key)]
 
 	if val == nil {
-		val = (*conf)[string(cType)]
+		key = getItemKey("", cType)
+		val = (*conf)[string(key)]
 	}
 
 	return val
