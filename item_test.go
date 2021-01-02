@@ -62,7 +62,6 @@ func TestCreateItemFromJSON(t *testing.T) {
 
 	json := `{
 		"name": "test", 
-		"scope": "local", 
 		"type": "unit-test", 
 		"data": {
 			"someValue": "test", 
@@ -84,7 +83,6 @@ func TestCreateItemFromInterface(t *testing.T) {
 	dt := make(map[string]interface{})
 
 	dt["name"] = "test"
-	dt["scope"] = "local"
 	dt["type"] = "unit-test"
 	dt["data"] = data
 

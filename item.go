@@ -39,7 +39,6 @@ type Item struct {
 //
 //		json := `{
 //			"name": "test",
-//			"scope": "local",
 //			"type": "unit-test",
 //			"data": {
 //				"someValue": "test",
