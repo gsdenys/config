@@ -7,20 +7,14 @@ jobs:
     docker:
       # specify the version
       - image: circleci/golang:1.13
-      
+      - image: couchdb
+        - COUCHDB_USER: admin
+        - COUCHDB_PASSWORD: admin
+        
     working_directory: /go/src/github.com/intorch/config
     steps:
       - checkout
-      
-      - run: $ sudo apt-get install -y apt-transport-https gnupg ca-certificates
-      - run: echo "deb https://apache.bintray.com/couchdb-deb stretch main" | sudo tee /etc/apt/sources.list.d/couchdb.list
-      - run: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8756C4F765C9AC3CB6B85D62379CE192D401AB61
-      - run: sudo apt update
-      - run: sudo apt install -y couchdb
-      
-      - run: curl -s -X PUT http://localhost:5984/_node/couchdb@localhost/_config/admins/admin -d '"admin"'
-
-      
+       
       # specify any bash command here prefixed with `run: `
       - run: go get -v -t -d ./...
       - run: go test -v ./...
