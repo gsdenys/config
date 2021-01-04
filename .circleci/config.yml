@@ -10,8 +10,12 @@ jobs:
       - image: couchdb
         - COUCHDB_USER: admin
         - COUCHDB_PASSWORD: admin
-        
+       
     working_directory: /go/src/github.com/intorch/config
+    machine:
+      services:
+        - couchdb
+    
     steps:
       - checkout
        
