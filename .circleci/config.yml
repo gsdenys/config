@@ -10,7 +10,7 @@ jobs:
       - image: couchdb:3.1.1
         environment:
           COUCHDB_USER: admin
-          COUCHDB_PASSWORD: password
+          COUCHDB_PASSWORD: admin
        
     working_directory: /go/src/github.com/intorch/config
     
@@ -22,6 +22,8 @@ jobs:
       - run: curl https://dl.google.com/go/go1.15.6.linux-amd64.tar.gz --output go.tar.gz
       - run: tar -C /usr/local -xzf go.tar.gz
       - run: ln -s /usr/local/go/bin/go /usr/bin/go
+       
+      - run: curl -X GET http://admin:admin@127.0.0.1:5984/_all_dbs
        
       # specify any bash command here prefixed with `run: `
       - run: go get -v -t -d ./...
