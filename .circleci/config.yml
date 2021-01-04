@@ -7,9 +7,6 @@ jobs:
     docker:
       # specify the version
       - image: circleci/golang:1.13
-      - image: couchdb
-        - COUCHDB_USER: admin
-        - COUCHDB_PASSWORD: admin
        
     working_directory: /go/src/github.com/intorch/config
     machine:
