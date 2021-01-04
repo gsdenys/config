@@ -19,7 +19,7 @@ jobs:
        
       - run: curl https://dl.google.com/go/go1.15.6.linux-amd64.tar.gz --output go.tar.gz
       - run: tar -C /usr/local -xzf go.tar.gz
-      - run: export PATH=$PATH:/usr/local/go/bin
+      - run: ln -s /usr/local/go/bin/go /usr/bin/go
        
       # specify any bash command here prefixed with `run: `
       - run: go get -v -t -d ./...
